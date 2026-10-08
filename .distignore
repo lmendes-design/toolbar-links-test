@@ -1,0 +1,10 @@
+.git
+.github
+.gitignore
+.distignore
+.DS_Store
+README.md
+blueprint.json
+bin
+dist
+post
