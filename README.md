@@ -10,7 +10,7 @@ A small test plugin for WordPress Core Trac ticket [#66258](https://core.trac.wo
 
 ## Try it
 
-One click, no install: [open in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/lmendes-design/toolbar-links-test/main/blueprint.json).
+One click, no install: [open in WordPress Playground](https://playground.wordpress.net/#eyIkc2NoZW1hIjoiaHR0cHM6Ly9wbGF5Z3JvdW5kLndvcmRwcmVzcy5uZXQvYmx1ZXByaW50LXNjaGVtYS5qc29uIiwibGFuZGluZ1BhZ2UiOiIvd3AtYWRtaW4vIiwibG9naW4iOnRydWUsInByZWZlcnJlZFZlcnNpb25zIjp7InBocCI6IjguMyIsIndwIjoibGF0ZXN0In0sInN0ZXBzIjpbeyJzdGVwIjoiaW5zdGFsbFBsdWdpbiIsInBsdWdpbkRhdGEiOnsicmVzb3VyY2UiOiJnaXQ6ZGlyZWN0b3J5IiwidXJsIjoiaHR0cHM6Ly9naXRodWIuY29tL2xtZW5kZXMtZGVzaWduL3Rvb2xiYXItbGlua3MtdGVzdC5naXQiLCJyZWYiOiJtYWluIiwicGF0aCI6IiJ9LCJvcHRpb25zIjp7ImFjdGl2YXRlIjp0cnVlfX1dfQ==).
 
 Manual install:
 
