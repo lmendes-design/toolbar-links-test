@@ -357,8 +357,8 @@ function tlt_indicator( $wp_admin_bar ) {
 		)
 	);
 }
-// After the search item (9999), so it is the last node of the right group and sits at its left edge.
-add_action( 'admin_bar_menu', 'tlt_indicator', 10000 );
+// Before the account menu (0), so it is the first node of the right group and sits at its left edge.
+add_action( 'admin_bar_menu', 'tlt_indicator', -1 );
 
 /**
  * Styles.
