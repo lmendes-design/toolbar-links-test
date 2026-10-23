@@ -11,7 +11,7 @@ All four solve the same two problems: a way back to the Dashboard from the Post 
 | **1. The W goes to the Dashboard, the site name goes to the site** | Click goes to the Dashboard. Dashboard is the first item of the menu. Stays visible under 600px. | Click always goes to the site. Same menu everywhere: Visit Site, Plugins, Themes. |
 | **2. Everything under the site name** | No change. | Click always goes to the site. Same menu everywhere: Dashboard, Visit Site, Plugins, Themes. |
 | **3. Dashboard always in the site name menu** | No change. | Click works as today. Dashboard is always in the menu. In the admin and in the editors it comes after Visit Site. |
-| **4. The W moves to the end of the Toolbar** | Moves to the right side, after the account menu. Same menu. | First item of the Toolbar. Works like prototype 3. |
+| **4. The W moves to the end of the Toolbar** | Moves to the right side, next to the account menu. Same menu. | First item of the Toolbar. Works like prototype 3. |
 
 In all four: on multisite, Manage Site stays in the site name menu. Classic themes keep Widgets, Menus, Background and Header. When the site has no site icon, the same default icon is used everywhere. A small "Prototype N" item on the right tells you which one is active.
 
