@@ -3,7 +3,7 @@
  * Plugin Name: Toolbar Links Test
  * Plugin URI:  https://github.com/lmendes-design/toolbar-links-test
  * Description: Four prototypes for Trac #66258, the W and the site name in the Toolbar. Pick one in Settings > General or with the TLT_PROTOTYPE constant. Deactivate to get the current behavior back.
- * Version:     2.0.0
+ * Version:     2.1.0
  * Requires at least: 7.1
  * Requires PHP: 7.4
  * Author:      Lucas Mendes
@@ -21,11 +21,11 @@ defined( 'ABSPATH' ) || exit;
  * The prototypes.
  *
  * 1. The W goes to the Dashboard, the site name goes to the site. Same menus everywhere.
- * 2. Everything under the site name. The site name goes to the site, Dashboard is the
- *    first item of its menu, same menu everywhere. The W does not change.
- * 3. Dashboard always in the site name menu. The click works as today. The menu has
- *    the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the
- *    admin and in the editors. The W does not change.
+ * 2. Everything under the site name. The site name goes to the site, same menu
+ *    everywhere: Visit Site, Dashboard, Plugins, Themes. The W does not change.
+ * 3. Dashboard in the site name menu where it is missing: on the front end (Core)
+ *    and in the editors. Not in the regular admin, the menu on the left has it.
+ *    Plugins and Themes everywhere. The W does not change.
  * 4. The W moves to the end of the Toolbar. The site name is the first item and works
  *    like prototype 3. The W menu moves next to the account menu.
  *
@@ -39,11 +39,11 @@ function tlt_prototypes() {
 		),
 		2 => array(
 			'label'       => __( 'Prototype 2: everything under the site name', 'toolbar-links-test' ),
-			'description' => __( 'The site name goes to the site. Its menu is the same everywhere: Dashboard, Visit Site, Plugins, Themes. The W does not change.', 'toolbar-links-test' ),
+			'description' => __( 'The site name goes to the site. Its menu is the same everywhere: Visit Site, Dashboard, Plugins, Themes. The W does not change.', 'toolbar-links-test' ),
 		),
 		3 => array(
 			'label'       => __( 'Prototype 3: Dashboard always in the site name menu', 'toolbar-links-test' ),
-			'description' => __( 'The site name click works as today. The menu has the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the admin and in the editors. The W does not change.', 'toolbar-links-test' ),
+			'description' => __( 'The site name click works as today. Dashboard is in the menu on the front end and in the editors, not in the admin, where the menu on the left already has it. Plugins and Themes everywhere. The W does not change.', 'toolbar-links-test' ),
 		),
 		4 => array(
 			'label'       => __( 'Prototype 4: the W moves to the end of the Toolbar', 'toolbar-links-test' ),
@@ -233,7 +233,16 @@ function tlt_site_menu_fixed( $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'dashboard' );
 	}
 
-	// Then add the same items everywhere.
+	// Then add the same items everywhere. Visit Site first.
+	$wp_admin_bar->add_node(
+		array(
+			'parent' => 'site-name',
+			'id'     => 'view-site',
+			'title'  => __( 'Visit Site' ),
+			'href'   => home_url( '/' ),
+		)
+	);
+
 	if ( 2 === $prototype && current_user_can( 'read' ) ) {
 		$wp_admin_bar->add_node(
 			array(
@@ -244,15 +253,6 @@ function tlt_site_menu_fixed( $wp_admin_bar ) {
 			)
 		);
 	}
-
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'site-name',
-			'id'     => 'view-site',
-			'title'  => __( 'Visit Site' ),
-			'href'   => home_url( '/' ),
-		)
-	);
 
 	if ( is_multisite() && current_user_can( 'manage_sites' ) ) {
 		$wp_admin_bar->add_node(
@@ -286,11 +286,12 @@ function tlt_site_menu_fixed( $wp_admin_bar ) {
 add_action( 'admin_bar_menu', 'tlt_site_menu_fixed', 31 );
 
 /**
- * Prototypes 3 and 4. Dashboard is always in the site name menu.
+ * Prototypes 3 and 4. Dashboard in the site name menu where it is missing.
  *
- * Core adds Dashboard, Plugins and Themes on the front end only. In the admin,
- * and so in the Post Editor and the Site Editor, this adds the same items after
- * Visit Site. The click on the site name does not change.
+ * Core adds Dashboard, Plugins and Themes on the front end only. In the Post
+ * Editor and the Site Editor this adds the same items after Visit Site. In the
+ * regular admin the menu on the left already has Dashboard, so only Plugins
+ * and Themes are added there. The click on the site name does not change.
  *
  * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
  */
@@ -307,23 +308,25 @@ function tlt_site_menu_dashboard( $wp_admin_bar ) {
 		return;
 	}
 
-	// Keep Manage Site after Dashboard on multisite: remove it and add it back.
-	$edit_site = $wp_admin_bar->get_node( 'edit-site' );
-	if ( $edit_site ) {
-		$wp_admin_bar->remove_node( 'edit-site' );
-	}
+	if ( tlt_is_editor() ) {
+		// Keep Manage Site after Dashboard on multisite: remove it and add it back.
+		$edit_site = $wp_admin_bar->get_node( 'edit-site' );
+		if ( $edit_site ) {
+			$wp_admin_bar->remove_node( 'edit-site' );
+		}
 
-	$wp_admin_bar->add_node(
-		array(
-			'parent' => 'site-name',
-			'id'     => 'dashboard',
-			'title'  => __( 'Dashboard' ),
-			'href'   => admin_url(),
-		)
-	);
+		$wp_admin_bar->add_node(
+			array(
+				'parent' => 'site-name',
+				'id'     => 'dashboard',
+				'title'  => __( 'Dashboard' ),
+				'href'   => admin_url(),
+			)
+		);
 
-	if ( $edit_site ) {
-		$wp_admin_bar->add_node( (array) $edit_site );
+		if ( $edit_site ) {
+			$wp_admin_bar->add_node( (array) $edit_site );
+		}
 	}
 
 	// Then the same items the front end has: Plugins and Themes.
@@ -398,7 +401,10 @@ function tlt_styles() {
 	}
 
 	if ( 4 === tlt_prototype() ) {
-		$css .= '#wpadminbar .ab-top-secondary #wp-admin-bar-wp-logo > .ab-item { padding: 0 9px; }';
+		// The W centered in the right group, same side padding as the search item.
+		$css .= '#wpadminbar .ab-top-secondary #wp-admin-bar-wp-logo > .ab-item { display: flex; align-items: center; height: 32px; padding: 0 10px; }';
+		$css .= '#wpadminbar .ab-top-secondary #wp-admin-bar-wp-logo > .ab-item .ab-icon { width: 20px; height: 20px; padding: 0; margin: 0; line-height: 20px; float: none; }';
+		$css .= '#wpadminbar .ab-top-secondary #wp-admin-bar-wp-logo > .ab-item .ab-icon:before { top: 0; }';
 		$css .= '#wpadminbar .ab-top-secondary #wp-admin-bar-wp-logo .ab-sub-wrapper .ab-item { padding-left: 2em; }';
 	}
 

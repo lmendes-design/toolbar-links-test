@@ -4,7 +4,7 @@ Tags: toolbar, admin bar
 Requires at least: 7.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,8 +17,8 @@ This is a test plugin for WordPress Core Trac ticket #66258 and the Make Core po
 All four solve the same two problems: a way back to the Dashboard from the Post Editor and the Site Editor, and a first item in the Toolbar that is useful.
 
 * Prototype 1: the W goes to the Dashboard, the site name goes to the site. Dashboard is the first item of the W menu. The site name menu is the same everywhere: Visit Site, Plugins, Themes. The W stays visible on small screens.
-* Prototype 2: everything under the site name. The site name goes to the site. Its menu is the same everywhere: Dashboard, Visit Site, Plugins, Themes. The W does not change.
-* Prototype 3: Dashboard always in the site name menu. The click works as today. The menu has the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the admin and in the editors. The W does not change.
+* Prototype 2: everything under the site name. The site name goes to the site. Its menu is the same everywhere: Visit Site, Dashboard, Plugins, Themes. The W does not change.
+* Prototype 3: Dashboard always in the site name menu. The click works as today. Dashboard is in the menu on the front end and in the editors, not in the regular admin, where the menu on the left already has it. Plugins and Themes everywhere. The W does not change.
 * Prototype 4: the W moves to the end of the Toolbar. The site name is the first item and works like prototype 3. The W menu moves to the right side, next to the account menu.
 
 Pick a prototype in Settings > General, "Toolbar prototype". Or define TLT_PROTOTYPE (1 to 4) in wp-config.php. A small "Prototype N" item on the right of the Toolbar tells you which one is active.
@@ -38,6 +38,11 @@ Feedback goes to the Make Core post https://make.wordpress.org/core/2026/10/12/c
 You can also try each prototype in WordPress Playground with no install. The links are in the README: https://github.com/lmendes-design/toolbar-links-test#try-it
 
 == Changelog ==
+
+= 2.1.0 =
+* Prototype 2: Visit Site first, then Dashboard.
+* Prototype 3 and 4: no Dashboard item in the regular admin, only on the front end and in the editors.
+* Prototype 4: the W is centered in the right group.
 
 = 2.0.0 =
 * Four prototypes instead of one. Switch in Settings > General or with the TLT_PROTOTYPE constant.
