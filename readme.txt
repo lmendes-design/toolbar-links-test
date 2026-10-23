@@ -18,7 +18,7 @@ All four solve the same two problems: a way back to the Dashboard from the Post 
 
 * Prototype 1: the W goes to the Dashboard, the site name goes to the site. Dashboard is the first item of the W menu. The site name menu is the same everywhere: Visit Site, Plugins, Themes. The W stays visible on small screens.
 * Prototype 2: everything under the site name. The site name goes to the site. Its menu is the same everywhere: Dashboard, Visit Site, Plugins, Themes. The W does not change.
-* Prototype 3: Dashboard always in the site name menu. The click works as today. Dashboard is always in the menu, in the admin and in the editors too. The W does not change.
+* Prototype 3: Dashboard always in the site name menu. The click works as today. The menu has the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the admin and in the editors. The W does not change.
 * Prototype 4: the W moves to the end of the Toolbar. The site name is the first item and works like prototype 3. The W menu moves to the right side, next to the account menu.
 
 Pick a prototype in Settings > General, "Toolbar prototype". Or define TLT_PROTOTYPE (1 to 4) in wp-config.php. A small "Prototype N" item on the right of the Toolbar tells you which one is active.

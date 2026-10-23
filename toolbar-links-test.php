@@ -23,8 +23,9 @@ defined( 'ABSPATH' ) || exit;
  * 1. The W goes to the Dashboard, the site name goes to the site. Same menus everywhere.
  * 2. Everything under the site name. The site name goes to the site, Dashboard is the
  *    first item of its menu, same menu everywhere. The W does not change.
- * 3. Dashboard always in the site name menu. The click works as today, Dashboard is
- *    always in the menu, in the admin and in the editors too. The W does not change.
+ * 3. Dashboard always in the site name menu. The click works as today. The menu has
+ *    the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the
+ *    admin and in the editors. The W does not change.
  * 4. The W moves to the end of the Toolbar. The site name is the first item and works
  *    like prototype 3. The W menu moves next to the account menu.
  *
@@ -42,7 +43,7 @@ function tlt_prototypes() {
 		),
 		3 => array(
 			'label'       => __( 'Prototype 3: Dashboard always in the site name menu', 'toolbar-links-test' ),
-			'description' => __( 'The site name click works as today. Dashboard is always in its menu, in the admin and in the editors too. The W does not change.', 'toolbar-links-test' ),
+			'description' => __( 'The site name click works as today. The menu has the same items everywhere: Dashboard, Plugins, Themes, plus Visit Site in the admin and in the editors. The W does not change.', 'toolbar-links-test' ),
 		),
 		4 => array(
 			'label'       => __( 'Prototype 4: the W moves to the end of the Toolbar', 'toolbar-links-test' ),
@@ -287,10 +288,9 @@ add_action( 'admin_bar_menu', 'tlt_site_menu_fixed', 31 );
 /**
  * Prototypes 3 and 4. Dashboard is always in the site name menu.
  *
- * Core adds Dashboard on the front end only. In the admin, and so in the Post
- * Editor and the Site Editor, this adds it as the second item, right after
- * Visit Site. The click on the site name does not change. The other items do
- * not change either.
+ * Core adds Dashboard, Plugins and Themes on the front end only. In the admin,
+ * and so in the Post Editor and the Site Editor, this adds the same items after
+ * Visit Site. The click on the site name does not change.
  *
  * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
  */
@@ -325,6 +325,20 @@ function tlt_site_menu_dashboard( $wp_admin_bar ) {
 	if ( $edit_site ) {
 		$wp_admin_bar->add_node( (array) $edit_site );
 	}
+
+	// Then the same items the front end has: Plugins and Themes.
+	if ( current_user_can( 'activate_plugins' ) ) {
+		$wp_admin_bar->add_node(
+			array(
+				'parent' => 'site-name',
+				'id'     => 'plugins',
+				'title'  => __( 'Plugins' ),
+				'href'   => admin_url( 'plugins.php' ),
+			)
+		);
+	}
+
+	wp_admin_bar_appearance_menu( $wp_admin_bar );
 }
 add_action( 'admin_bar_menu', 'tlt_site_menu_dashboard', 31 );
 
