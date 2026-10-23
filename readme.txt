@@ -4,36 +4,44 @@ Tags: toolbar, admin bar
 Requires at least: 7.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Test plugin for Trac #66258. Makes the W and the site name in the Toolbar behave the same in the admin, the editors and the front end.
+Test plugin for Trac #66258. Four prototypes for the W and the site name in the Toolbar.
 
 == Description ==
 
-This is a test plugin for WordPress Core Trac ticket #66258, "Toolbar: same W and site name behavior in the admin, the editors and the front end". It lets you try the proposal on a real site before it lands in Core.
+This is a test plugin for WordPress Core Trac ticket #66258 and the Make Core post "Call for feedback: the W and the site name in the Toolbar". It holds four prototypes for the first items of the Toolbar, so you can try each one on a real site and compare.
 
-With the plugin active:
+All four solve the same two problems: a way back to the Dashboard from the Post Editor and the Site Editor, and a first item in the Toolbar that is useful.
 
-* The W goes to the Dashboard instead of the About WordPress page. Dashboard becomes the first item in the W menu. The W stays visible on small screens (Core hides it under 600px).
-* The site name always goes to the site. Today on the front end it goes to the Dashboard. Its menu is the same everywhere: Visit Site, Manage Site (multisite only), Plugins, Themes, plus Widgets, Menus, Background and Header on classic themes. The Dashboard item leaves this menu.
-* When the site has no site icon, the same default icon is used everywhere. Today it is a house in the admin and a gauge on the front end.
+* Prototype 1: the W goes to the Dashboard, the site name goes to the site. Dashboard is the first item of the W menu. The site name menu is the same everywhere: Visit Site, Plugins, Themes. The W stays visible on small screens.
+* Prototype 2: everything under the site name. The site name goes to the site. Its menu is the same everywhere: Dashboard, Visit Site, Plugins, Themes. The W does not change.
+* Prototype 3: Dashboard always in the site name menu. The click works as today. Dashboard is always in the menu, in the admin and in the editors too. The W does not change.
+* Prototype 4: the W moves to the end of the Toolbar. The site name is the first item and works like prototype 3. The W menu moves to the right side, after the account menu.
 
-Deactivate the plugin to get the current behavior back. Nothing is stored in the database.
+Pick a prototype in Settings > General, "Toolbar prototype". Or define TLT_PROTOTYPE (1 to 4) in wp-config.php. A small "Prototype N" item on the right of the Toolbar tells you which one is active.
 
-Feedback goes to the Trac ticket: https://core.trac.wordpress.org/ticket/66258
+Deactivate the plugin to get the current behavior back. The plugin stores one option, the chosen prototype. Uninstall removes it.
+
+Feedback goes to the Make Core post https://make.wordpress.org/core/2026/10/12/call-for-feedback-the-w-and-the-site-name-in-the-toolbar/ or to the Trac ticket https://core.trac.wordpress.org/ticket/66258
 
 == Installation ==
 
 1. Download toolbar-links-test.zip from https://github.com/lmendes-design/toolbar-links-test/releases/latest/download/toolbar-links-test.zip
 2. In wp-admin, go to Plugins, Add New Plugin, Upload Plugin.
 3. Upload the zip and activate the plugin.
-4. Deactivate it to compare with the current behavior.
+4. Pick a prototype in Settings > General.
+5. Deactivate it to compare with the current behavior.
 
-You can also try it in WordPress Playground with no install: https://playground.wordpress.net/#eyIkc2NoZW1hIjoiaHR0cHM6Ly9wbGF5Z3JvdW5kLndvcmRwcmVzcy5uZXQvYmx1ZXByaW50LXNjaGVtYS5qc29uIiwibGFuZGluZ1BhZ2UiOiIvd3AtYWRtaW4vIiwibG9naW4iOnRydWUsInByZWZlcnJlZFZlcnNpb25zIjp7InBocCI6IjguMyIsIndwIjoibGF0ZXN0In0sInN0ZXBzIjpbeyJzdGVwIjoiaW5zdGFsbFBsdWdpbiIsInBsdWdpbkRhdGEiOnsicmVzb3VyY2UiOiJnaXQ6ZGlyZWN0b3J5IiwidXJsIjoiaHR0cHM6Ly9naXRodWIuY29tL2xtZW5kZXMtZGVzaWduL3Rvb2xiYXItbGlua3MtdGVzdC5naXQiLCJyZWYiOiJtYWluIiwicGF0aCI6IiJ9LCJvcHRpb25zIjp7ImFjdGl2YXRlIjp0cnVlfX1dfQ==
+You can also try each prototype in WordPress Playground with no install. The links are in the README: https://github.com/lmendes-design/toolbar-links-test#try-it
 
 == Changelog ==
+
+= 2.0.0 =
+* Four prototypes instead of one. Switch in Settings > General or with the TLT_PROTOTYPE constant.
+* A "Prototype N" item on the right of the Toolbar shows the active one.
 
 = 1.0.0 =
 * First version.
